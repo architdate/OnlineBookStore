@@ -274,6 +274,40 @@ def browse_post():
 		booktable = BrowseTable(booklist)
 		return render_template('bookpage.html', booktable='<h2>Browse Results</h2> <br>'+booktable.__html__(), manager=manager)
 
+    '''
+    Question 6: Adding data to the feedback table scoring from 0 to 10
+    '''
+
+    elif request.form['my-form'] == 'Feedback':
+		isbn13Form = request.form['feedback_isbn13']
+		scoreForm = request.form['score']
+		commentForm = request.form['comment']
+		date = time.strftime("%Y-%m-%d")
+		login_name=session['login_name']
+		try:
+			db.engine.execute("insert into feedback (isbn13, login_name, score, short_text, feedback_date) values ('{}','{}','{}','{}','{}')".format(isbn13Form,login_name,scoreForm,commentForm,date))
+			success = "Your feedback for this book has been recorded successfully"
+		except IntegrityError:
+			return render_template('bookpage.html', booktable='You have already rated this book before or you specified an invalid ISBN13', manager=manager)
+		except Exception:
+			return render_template('bookpage.html', booktable='Something went wrong, please try again', manager=manager)
+		return render_template('bookpage.html', booktable=success, manager=manager)
+
+    '''
+    Question 9: Finding the most useful feedbacks
+    '''
+
+	elif request.form['my-form'] == 'Get Top Feedback':
+		isbn13Form = request.form['topfeedback_isbn13']
+		limitForm = request.form['topfeedback']
+		login_name=session['login_name']
+		feedbackList = []
+		qresult = db.engine.execute("select t1.login_name, t1.title, t1.isbn13, t1.score, t1.short_text as short_text, t1.feedback_date, t2.avg_rating from (select fb.login_name, b.title, fb.isbn13, fb.score, fb.short_text, fb.feedback_date from Feedback fb, Books b where fb.isbn13 = '{}' and b.isbn13 = fb.isbn13) as t1 left outer join (select login_name, isbn13, avg(rating) as avg_rating from Rate where isbn13 = '978-1501138003' group by login_name, isbn13) as t2 on t1.login_name = t2.login_name order by t2.avg_rating desc limit {};".format(isbn13Form, limitForm))
+		for row in qresult:
+			feedbackList.append(row)
+		feedbacktable = FeedbackTable(feedbackList)
+		return render_template('bookpage.html', booktable='<h3>Top '+limitForm+' Feedback for the book</h3> <br>'+feedbacktable.__html__(), manager=manager)
+
 
 ##########################################################################################
 #                       Running the application                                          #
