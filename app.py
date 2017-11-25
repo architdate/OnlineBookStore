@@ -17,6 +17,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@lo
 
 db = SQLAlchemy(app)
 
+##########################################################################################
+#                          Table Constructors                                            #
+##########################################################################################
+
 class customers(db.Model):
 	login_name = db.Column(db.String(20), primary_key = True)
 	password = db.Column(db.String(20))
@@ -165,6 +169,110 @@ def logout():
 	session['logged_in'] = False
 	session['login_name'] = None
 	return redirect("/")
+
+'''
+Question 3: Added profile data
+Getting data and presenting it in tables for the profile page
+'''
+@app.route('/getrecord/', methods=['GET'])
+def getrecord():
+	if not session.get('logged_in'):
+		return redirect('/login')
+	username = ''
+	if 'login_name' in session:
+		Login_name=session['login_name']
+		username = Login_name
+	rs = []
+	qresult = db.engine.execute("select * from Customers where login_name='%s'"%username)
+	for row in qresult:
+		rs.append(row)
+	info1 = rs[0]
+
+	rs = []
+	qresult = db.engine.execute("select b.title, o.isbn13, ob.orderid, ob.order_date, ob.order_status, o.order_qty from ordered_books ob, orders o, books b where ob.customer = '{}' and ob.orderid = o.orderid and b.isbn13 = o.isbn13;".format(username))
+	for row in qresult:
+		rs.append(row)
+	orderlist = rs
+	ordertable = OrderTable(orderlist)
+
+	rs = []
+	qresult = db.engine.execute("select t1.login_name, t1.title, t1.isbn13, t1.score, t1.short_text, t1.feedback_date, t2.avg_rating from (select fb.login_name, b.title, fb.isbn13, fb.score, fb.short_text, fb.feedback_date from Feedback fb, Books b where fb.login_name = '{}' and b.isbn13 = fb.isbn13) as t1 left outer join (select avg(rating) as avg_rating, isbn13 from rate where login_name = '{}' group by isbn13) as t2 on t1.isbn13 = t2.isbn13;".format(username, username))
+	for row in qresult:
+		rs.append(row)
+	feedbacklist = rs
+	feedbacktable = FeedbackTable(feedbacklist)
+
+	rs = []
+	qresult = db.engine.execute("select b.title, r.isbn13, r.login_name, r.rating from Books b, Rate r where (r.customer_rating = '{}' and b.isbn13 = r.isbn13);".format(username))
+	for row in qresult:
+		rs.append(row)
+	ratelist = rs
+	ratetable = RatingTable(ratelist)
+
+	if username == 'manager':
+		return render_template('userrecord.html', username=info1[0], password=info1[1], first_name=info1[2], last_name=info1[3], credit_card=info1[4], address=info1[5], phone_number=info1[6], ordertable=ordertable.__html__(), feedbacktable=feedbacktable.__html__(), ratetable=ratetable.__html__(), manager='<a class="nav-item nav-link" href="/manager">Manager</a>')
+	return render_template('userrecord.html', username=info1[0], password=info1[1], first_name=info1[2], last_name=info1[3], credit_card=info1[4], address=info1[5], phone_number=info1[6], ordertable=ordertable.__html__(), feedbacktable=feedbacktable.__html__(), ratetable=ratetable.__html__(), manager='')
+
+
+'''
+Question 8: Added browse method to look up books
+'''
+@app.route('/browse/', methods=['GET'])
+def browse():
+	if not session.get('logged_in'):
+		return redirect('/login')
+	Login_name=session['login_name']
+	username = Login_name
+	if username == 'manager':
+		return render_template('browse.html', manager='<a class="nav-item nav-link" href="/manager">Manager</a>')
+	return render_template('browse.html', manager='')
+
+@app.route('/browse/', methods=['POST'])
+def browse_post():
+	Login_name=session['login_name']
+	username = Login_name
+	manager = ''
+	if username == 'manager':
+		manager = '<a class="nav-item nav-link" href="/manager">Manager</a>'
+
+	if request.form['my-form'] == 'search':
+		authorForm = request.form['author']
+		publisherForm = request.form['publisher']
+		titleForm = request.form['title']
+		subjectForm = request.form['subject']
+		wherequery = " where"
+		if authorForm:
+			wherequery += " bo.authors = '{}' and".format(authorForm)
+		if publisherForm:
+			wherequery += " bo.publisher = '{}' and".format(publisherForm)
+		if titleForm:
+			wherequery += " bo.title = '{}' and".format(titleForm)
+		if subjectForm:
+			wherequery += " bo.subject = '{}'".format(subjectForm)
+		if wherequery == " where":
+			wherequery = ""
+		if wherequery[-3:] =="and":
+			wherequery = wherequery[:-3]
+
+		optionForm = request.form['options']
+
+		if optionForm == 'year':
+			sort_order = 'year_of_publication'
+
+		elif optionForm == 'score':
+			sort_order = 'avgscore'
+
+		sqlquery = "select b.isbn13, b.title, b.authors, b.publisher, b.year_of_publication, b.inventory_qty, b.price, b.format as bookformat, b.keywords, b.subject, c.avgscore from (select bo.isbn13, bo.title, bo.authors, bo.publisher, bo.year_of_publication, bo.inventory_qty, bo.price, bo.format, bo.keywords, bo.subject from Books bo{}) as b left outer join (select avg(score) as avgscore, isbn13 from feedback group by isbn13) as c on b.isbn13 = c.isbn13 order by {} desc;".format(wherequery, sort_order)
+
+		print(sqlquery)
+
+		booklist = []
+		qresult = db.engine.execute(sqlquery)
+		for row in qresult:
+			booklist.append(row)
+
+		booktable = BrowseTable(booklist)
+		return render_template('bookpage.html', booktable='<h2>Browse Results</h2> <br>'+booktable.__html__(), manager=manager)
 
 
 ##########################################################################################
