@@ -437,6 +437,24 @@ def recordnew_post():
 	except IntegrityError:
 		return render_template('recordnew.html', recerror='Duplicate ISBN13, please check the book details again.')
 
+'''Question 5: Increment book count feature'''
+@app.route('/manager/addcopy/', methods=['GET'])
+def addcopy():
+	username = session['login_name']
+	if username != 'manager':
+		return redirect(url_for('index'))
+	return render_template('addcopy.html')
+
+@app.route('/manager/addcopy/', methods=['POST'])
+def addcopy_post():
+	try:
+		isbn13 = request.form['isbn13']
+		copies = request.form['copies']
+		db.engine.execute("update books set inventory_qty = inventory_qty + {} where isbn13 = '{}';".format(copies, isbn13))
+		return render_template('manager.html', record='', add='Successfully added copies to book.')
+	except:
+		return render_template('manager.html', record='', add='The book for the ISBN13 doesn\'t exist, please check your entries again.')
+
 
 
 ##########################################################################################
