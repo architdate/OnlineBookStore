@@ -5,7 +5,7 @@ from sqlalchemy.sql import func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, text
-from flask_table import Table, Col 
+from flask_table import Table, Col
 import os
 import decimal
 import time
@@ -35,7 +35,60 @@ class customers(db.Model):
 		self.address = address
 		self.phone_number = phone_number
 
-#Make remaining classes
+class OrderTable(Table):
+	classes = ['table']
+	title = Col('book title')
+	isbn13 = Col('ISBN13')
+	orderid = Col('order id')
+	order_date = Col('order date')
+	order_status = Col('order status')
+	order_qty = Col('quantity')
+
+class FeedbackTable(Table):
+	classes = ['table']
+	login_name = Col('username')
+	title = Col('book title')
+	isbn13 = Col('ISBN13')
+	score = Col('score')
+	short_text = Col('comment')
+	feedback_date = Col('date')
+	avg_rating = Col('rating')
+
+class RatingTable(Table):
+	classes = ['table']
+	title = Col('book title')
+	isbn13 = Col('ISBN13')
+	login_name = Col('customer name')
+	rating = Col('rating')
+
+
+class RateTable(Table):
+	classes = ['table']
+	title = Col('book title')
+	isbn13 = Col('ISBN13')
+	customer_rating = Col('customer name')
+	rating = Col('rating')
+
+class BrowseTable(Table):
+	classes = ['table']
+	isbn13 = Col('ISBN13')
+	title = Col('title')
+	authors = Col('authors')
+	publisher = Col('publisher')
+	year_of_publication = Col('year_of_publication')
+	inventory_qty = Col('inventory_qty')
+	price = Col('price')
+	bookformat = Col('format')
+	keywords = Col('keywords')
+	subject = Col('subject')
+	avgscore = Col('avgscore')
+
+class RecTable(Table):
+	classes = ['table']
+	title = Col('book title')
+	isbn13 = Col('ISBN13')
+
+#Make Stat Table class
 
 #Make table classes
 
