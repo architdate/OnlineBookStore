@@ -411,6 +411,32 @@ def manager():
 		return redirect(url_for('index'))
 	return render_template('manager.html', record='', add='')
 
+'''Question 4: Manager adds new book to database'''
+@app.route('/manager/recordnew/', methods=['GET'])
+def recordnew():
+	username = session['login_name']
+	if username != 'manager':
+		return redirect(url_for('index'))
+	return render_template('recordnew.html', recerror='')
+
+@app.route('/manager/recordnew/', methods=['POST'])
+def recordnew_post():
+	title = request.form['title']
+	isbn13 = request.form['isbn13']
+	authors = request.form['authors']
+	publisher = request.form['publisher']
+	year_of_publication = request.form['year']
+	inventory_qty = request.form['copies']
+	price = request.form['price']
+	book_format = request.form['format']
+	keywords = request.form['keywords']
+	subject = request.form['subject']
+	try:
+		db.engine.execute("insert into books values ('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}');".format(isbn13, title, authors, publisher, year_of_publication, inventory_qty, price, book_format, keywords, subject))
+		return render_template('manager.html', record='Successfully recorded new book.', add='')
+	except IntegrityError:
+		return render_template('recordnew.html', recerror='Duplicate ISBN13, please check the book details again.')
+
 
 
 ##########################################################################################
