@@ -292,8 +292,8 @@ def browse_post():
 			return render_template('bookpage.html', booktable='Something went wrong, please try again', manager=manager)
 		return render_template('bookpage.html', booktable=success, manager=manager)
 
-	# Question 9 
-    
+	# Question 9
+
 	elif request.form['my-form'] == 'Get Top Feedback':
 		isbn13Form = request.form['topfeedback_isbn13']
 		limitForm = request.form['topfeedback']
@@ -306,7 +306,7 @@ def browse_post():
 		return render_template('bookpage.html', booktable='<h3>Top '+limitForm+' Feedback for the book</h3> <br>'+feedbacktable.__html__(), manager=manager)
 
 	# Question 7
-    
+
 	elif request.form['my-form'] == 'Rate':
 		login_nameForm = request.form['login_name']
 		isbn13Form = str(request.form['rate_isbn13'])
@@ -324,6 +324,84 @@ def browse_post():
 		return render_template('bookpage.html', booktable=success)
 
 	return render_template('bookpage.html', booktable=booktable.__html__(), manager=manager)
+
+'''Question 2'''
+@app.route('/browse/order', methods=['POST'])
+def order_post():
+	Session = sessionmaker(bind=engine)
+	s = Session()
+	recolist = []
+	index = 0
+	manager = ''
+	try:
+		orderid = 1
+		for a in db.engine.execute("select orderid+1 from orders order by orderid desc limit 1;"):
+			orderid = a[0]
+	except:
+		orderid = 1
+	status = 'arrived'
+	date = time.strftime("%Y-%m-%d")
+	customer = ''
+	isbn13str = request.form['isbn13']
+	isbn13list = isbn13str.split(',')
+	copiesstr = request.form['copies']
+	copieslist = copiesstr.split(',')
+
+	for k in copieslist:
+		if int(k) <= 0 or k == '':
+			return render_template('bookpage.html', booktable='Invalid quantities for order, please try again.', manager=manager)
+
+	for j in isbn13list:
+		if j == '':
+			return render_template('bookpage.html', booktable='Wrong format of entries for order, please try again.', manager=manager)
+		toorder = db.engine.execute("select * from books where isbn13 = '{}';".format(j))
+		if toorder == None:
+			return render_template('bookpage.html', booktable='One or more ISBN13 you entered is/are not valid, please try again.', manager=manager)
+
+	if len(isbn13list) != len(copieslist):
+		return render_template('bookpage.html', booktable='Wrong format of entries for order, please try again.', manager=manager)
+
+	if 'login_name' in session:
+		Login_name=session['login_name']
+		customer = Login_name
+		if customer == 'manager':
+			manager = '<a class="nav-item nav-link" href="/manager">Manager</a>'
+
+	for i in range(len(isbn13list)):
+		for j in range(i + 1, len(isbn13list)):
+			try:
+				if isbn13list[i] == isbn13list[j]:
+					isbn13list.pop(j)
+					copieslist[i] = str(int(copieslist[i]) + int(copieslist[j]))
+					copieslist.pop(j)
+			except:
+				print ('finished compressing lists for duplicates')
+
+	newob = []
+	newo = []
+
+	while index < len(isbn13list):
+		try:
+			isbn13 = isbn13list[index]
+			copies = int(copieslist[index])
+			for rs in db.engine.execute("select inventory_qty from Books where isbn13 = '{}'".format(isbn13)):
+				book_curr_qty = rs[0]
+			tempqty = int(book_curr_qty) - copies
+			if tempqty < 0:
+				return render_template('bookpage.html', booktable='Sorry, one or more books you ordered is/are out of stock or you have ordered more than the available quantity.', manager=manager)
+			db.engine.execute("update books set inventory_qty = {} where isbn13 = '{}'".format(tempqty, isbn13))
+			db.engine.execute("insert into Ordered_books (orderid, customer, order_date, order_status) values ('{}','{}',DATE '{}','{}');".format(orderid, customer, date, status))
+			db.engine.execute("insert into Orders values ('{}','{}','{}');".format(orderid, isbn13, copies))
+			recom = db.engine.execute("select title, isbn13 from books where isbn13 in (select isbn13 from orders where isbn13 <> '{}' AND orderid in (select orderid from ordered_books where customer in (select customer from ordered_books where orderid in (select orderid from orders where isbn13 = '{}'))) group by isbn13 order by sum(order_qty) desc);".format(isbn13,isbn13))
+			for rc in recom:
+				if rc not in recolist:
+					recolist.append(rc)
+			index += 1
+			orderid += 1
+		except Exception:
+			return render_template('bookpage.html', booktable='Something went wrong, please check your order again.', manager=manager)
+	reco = RecTable(recolist)
+	return render_template('recommendation.html', recommendation=reco.__html__(), manager=manager)
 
 
 
