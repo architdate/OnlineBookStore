@@ -305,6 +305,26 @@ def browse_post():
 		feedbacktable = FeedbackTable(feedbackList)
 		return render_template('bookpage.html', booktable='<h3>Top '+limitForm+' Feedback for the book</h3> <br>'+feedbacktable.__html__(), manager=manager)
 
+	# Question 7
+    
+	elif request.form['my-form'] == 'Rate':
+		login_nameForm = request.form['login_name']
+		isbn13Form = str(request.form['rate_isbn13'])
+		rateForm = int(request.form['rating'])
+		login_name=session['login_name']
+		if login_nameForm == login_name:
+			return render_template('bookpage.html', booktable='ERROR: You are not allowed to rate your own feedback')
+		try:
+			db.engine.execute("insert into rate (login_name, isbn13, customer_rating, rating) values ('{}','{}','{}','{}')".format(login_nameForm, isbn13Form, login_name, rateForm))
+			success = '''Your rating for <font color = "red">''' + login_nameForm + "'s feedback for this book</font> has been recorded successfully"
+		except IntegrityError:
+			return render_template('bookpage.html', booktable='ERROR: You have already rated this feedback before or you specified an invalid input')
+		except Exception:
+			return render_template('bookpage.html', booktable='Something went wrong, please try again')
+		return render_template('bookpage.html', booktable=success)
+
+	return render_template('bookpage.html', booktable=booktable.__html__(), manager=manager)
+
 
 
 ##########################################################################################
