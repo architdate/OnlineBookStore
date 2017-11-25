@@ -403,6 +403,14 @@ def order_post():
 	reco = RecTable(recolist)
 	return render_template('recommendation.html', recommendation=reco.__html__(), manager=manager)
 
+'''Manager Options'''
+@app.route('/manager/', methods=['GET'])
+def manager():
+	username = session['login_name']
+	if username != 'manager':
+		return redirect(url_for('index'))
+	return render_template('manager.html', record='', add='')
+
 
 
 ##########################################################################################
