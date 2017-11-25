@@ -256,9 +256,10 @@ def browse_post():
 
 		optionForm = request.form['options']
 
+		# sort by year, descending order
 		if optionForm == 'year':
 			sort_order = 'year_of_publication'
-
+		# sort by score, descending order
 		elif optionForm == 'score':
 			sort_order = 'avgscore'
 
@@ -274,11 +275,9 @@ def browse_post():
 		booktable = BrowseTable(booklist)
 		return render_template('bookpage.html', booktable='<h2>Browse Results</h2> <br>'+booktable.__html__(), manager=manager)
 
-    '''
-    Question 6: Adding data to the feedback table scoring from 0 to 10
-    '''
+	# Question 6
 
-    elif request.form['my-form'] == 'Feedback':
+	elif request.form['my-form'] == 'Feedback':
 		isbn13Form = request.form['feedback_isbn13']
 		scoreForm = request.form['score']
 		commentForm = request.form['comment']
@@ -293,10 +292,8 @@ def browse_post():
 			return render_template('bookpage.html', booktable='Something went wrong, please try again', manager=manager)
 		return render_template('bookpage.html', booktable=success, manager=manager)
 
-    '''
-    Question 9: Finding the most useful feedbacks
-    '''
-
+	# Question 9 
+    
 	elif request.form['my-form'] == 'Get Top Feedback':
 		isbn13Form = request.form['topfeedback_isbn13']
 		limitForm = request.form['topfeedback']
@@ -307,6 +304,7 @@ def browse_post():
 			feedbackList.append(row)
 		feedbacktable = FeedbackTable(feedbackList)
 		return render_template('bookpage.html', booktable='<h3>Top '+limitForm+' Feedback for the book</h3> <br>'+feedbacktable.__html__(), manager=manager)
+
 
 
 ##########################################################################################
