@@ -13,3 +13,4 @@ PyMySQL==0.7.11
 pytz==2017.3
 SQLAlchemy==1.1.15
 Werkzeug==0.12.2
+flask-bootstrap

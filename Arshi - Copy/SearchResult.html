@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Landing Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+
+    <title>Sort a HTML Table Alphabetically</title>
+    <style>
+    table {
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        cursor: pointer;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 16px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+
+        button.accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+    button.accordion.active, button.accordion:hover {
+        background-color: #ccc;
+    }
+
+    button.accordion:after {
+        content: '\002B';
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    button.accordion.active:after {
+        content: "\2212";
+    }
+
+    div.panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+    </style>
+    <script>
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+    </script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href= "#About">The BookStore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="BrowseBooks.html">Browse</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ProfileFinal.html">My Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Checkout.html">View My Cart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Sign Up">LogOut</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+ <section>
+      <br>
+        <div class ="container">
+        <br>
+        <br>
+        <table id="myTable">
+          <br>
+          <tr>
+           <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->  
+            <th onclick="sortTable(0)"><u>Title Of Book</u></th>
+            <th onclick="sortTable(1)"><u>Author</u></th>
+            <th onclick="sortTable(2)"><u>Publisher</u></th>
+            <th onclick="sortTable(3)"><u>Subject</u></th>
+            <th onclick="sortTable(3)"><u>Year</u></th>
+            <th onclick="sortTable(5)"><u>Price</u></th>
+            <th onclick="sortTable(6)"><u>Rating</u></th> 
+            <th onclick="sortTable(7)"><u>Add To Cart</u></th>            
+          </tr>
+          <tr>
+             <td data-th="Title Of Book"> <a href="DetailsOfBookSuggestion.html"><p class="nomargin">Why Wicked Weird</p></a></td>
+              <td data-th ="Author"><p>Nicky Nightingale</p></td>
+              <td data-th ="Publisher"><p>Random Publisher</p></td>
+              <td data-th ="Subject"><p>Literature</p></td>
+              <td data-th="Year"><div class="col-sm-7">2010</div></td>
+
+              <td data-th="Price">$700.99</td>
+               
+              <td data-th="Rating">3.6</td>
+
+              
+              <td class="actions" data-th="">
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+                </div>              
+              </td>
+            </tr>
+          <tr>
+              <td data-th="Title Of Book"> <a href="DetailsOfBookSuggestion.html"><p class="nomargin">Wicked Weird Weirdest</p></a></td>
+              <td data-th ="Author"><p>Nicky Nightingale</p></td>
+              <td data-th ="Publisher"><p>Some Random Publisher</p></td>
+              <td data-th ="Subject"><p>Literature</p></td>
+              <td data-th="Year"><div class="col-sm-7">2012</div></td>
+
+              <td data-th="Price">$780.99</td>
+               
+              <td data-th="Rating">4.6</td>
+
+             
+              <td class="actions" data-th="">
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+                </div>              
+              </td>
+            </tr>
+          <tr>
+              <td data-th="Title Of Book"> <a href="DetailsOfBookSuggestion.html"><p class="nomargin">Wicked and Weird</p></a></td>
+              <td data-th ="Author"><p>Nicky Nightingale</p></td>
+              <td data-th ="Publisher"><p>Not Random Publisher</p></td>
+              <td data-th ="Subject"><p>Science</p></td>
+              <td data-th="Year"><div class="col-sm-7">2001</div></td>
+
+              <td data-th="Price">$500.99</td>
+               
+              <td data-th="Rating">7.26</td>
+
+              <td class="actions" data-th="">
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+                </div>              
+              </td>
+            </tr>
+        </table>
+
+      <script>
+      function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("myTable");
+        switching = true;
+        //Set the sorting direction to ascending:
+        dir = "asc"; 
+        /*Make a loop that will continue until
+        no switching has been done:*/
+        while (switching) {
+          //start by saying: no switching is done:
+          switching = false;
+          rows = table.getElementsByTagName("TR");
+          /*Loop through all table rows (except the
+          first, which contains table headers):*/
+          for (i = 1; i < (rows.length - 1); i++) {
+            //start by saying there should be no switching:
+            shouldSwitch = false;
+            /*Get the two elements you want to compare,
+            one from current row and one from the next:*/
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            /*check if the two rows should switch place,
+            based on the direction, asc or desc:*/
+            if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch= true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch= true;
+                break;
+              }
+            }
+          }
+          if (shouldSwitch) {
+            /*If a switch has been marked, make the switch
+            and mark that a switch has been done:*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            //Each time a switch is done, increase this count by 1:
+            switchcount ++;      
+          } else {
+            /*If no switching has been done AND the direction is "asc",
+            set the direction to "desc" and run the while loop again.*/
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
+          }
+        }
+      }
+      </script>
+  </div>
+  <div class="modal fade product_view" id="product_view">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                <h3 class="modal-title">Somthing Wickedly Weird</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-1 product_img">
+                    </div>
+                    <div class="col-md-5 product_img">
+                        <img src=img/book1.jpg class="img-responsive">
+                    </div>
+                    <div class="col-md-6 product_content">
+                        <p><span>By Nicky Nightingale</span></h4>
+                        <div class="ratings">
+                          <p>
+                          <a href ="#">Reviews</a>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                          </p>
+                        </div>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <h3 class="cost"><span class="glyphicon glyphicon-usd"></span> 75.00 <small class="pre-cost"><span class="glyphicon glyphicon-usd"></span> 60.00</small></h3>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <select class="form-control" name="select">
+                                    <option value="" selected="">Type</option>
+                                    <option value="HardCopy">HardCopy</option>
+                                    <option value="SoftCopy">SoftCopy</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <select class="form-control" name="select">
+                                    <option value="" selected="">QTY</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                    <option value="">6</option>
+                                    <option value="">7</option>
+                                    <option value="">8</option>
+                                    <option value="">9</option>
+                                    <option value="">10</option>
+                                </select>
+                            </div>
+
+                            <div class="btn-ground">
+                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
+                            
+                            </div>
+  </section>
+
+
+<footer>
+      <div class="container">
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="BrowseBooks.html">Browse</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#">My Profile</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href ="Checkout.html">View My Cart</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="/index.html #SignUp">Log Out</a>
+          </li>
+        </ul>
+        <p class="copyright text-muted small">Copyright &copy; The BookStore 2017. All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

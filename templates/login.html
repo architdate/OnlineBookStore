@@ -1,86 +1,152 @@
-<!-- reference: CodePen.io. You can find this one at http://codepen.io/ehermanson/pen/KwKWEv. -->
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Sign-Up/Login Form</title>
-  <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+<html lang="en">
 
+  <head>
 
-  <link rel="stylesheet" href="/static/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>Landing Page</title>
+	
 
-</head>
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<!-- Bootstrap core JavaScript -->
+	<!-- href="{{ url_for('static', filename='vendor\bootstrap\js\bootstrap.bundle.min.js') }}" -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-<body>
-  <div class="form">
-      <h1>Welcome to the Book Store</h1>
+    <!-- Custom fonts for this template -->
+    <link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-      <ul class="tab-group">
-        <li class="tab active"><a href="#login">Log In</a></li>
-        <li class="tab"><a href="../registration">Register</a></li>
-      </ul>
+    <!-- Custom styles for this template -->
+    <link 	href="{{ url_for('static', filename='css/landing_page.css') }}" rel="stylesheet">
+    <!-- Custom styles for this template -->	
+	<script src="/static/login.js"></script>
 
-      <div class="tab-content">
-        <div id="login">
-          <form action="." method="post">
+  </head>
 
-          <div class="top-row">
-            <div class="field-wrap">
-              <label>
-                Username<span class="req">*</span>
-              </label>
-              <input type="text" required autocomplete="off" name="login_name"/>
-            </div>
-
-            <div class="field-wrap">
-              <label>
-                Password<span class="req">*</span>
-              </label>
-              <input type="password" required autocomplete="off" name="password"/>
-            </div>
-          </div>
-
-          <button type="submit" class="button button-block"/>Log In</button>
-
-          </form>
-          <p> {{ loginerror|safe }} </p>
-
+  <body>
+    <!-- Header for the search section-->
+    <header class="intro-header">
+      <div class="container">
+        <div class="intro-message">
+          <h1>The BookStore</h1>
+          <h3>Perfect Place To Find Books</h3>
+          <hr class="intro-divider">                        
         </div>
+      </div>
+    </header>	
 
-        <div id="signup">
-          <h1>Welcome Back!</h1>
-
-          <form action="." method="post">
-
-            <div class="field-wrap">
-            <label>
-              Email Address<span class="req">*</span>
-            </label>
-            <input type="email"required autocomplete="off"/>
+   <!--Login Page Content -->
+    <section class="content-section-a">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5 ml-auto order-lg-2">
+            <div class="clearfix"></div>
+            <br>
+            <br>
+            <p class="lead">Be a member for free access to<br>
+              A wide variety of books<br>
+              Give feedback on books<br>
+              Read feedbacks by other readers<br>
+              <br>
+              <br>
+              Anyone. Anytime. Anywhere.
+              </p>
           </div>
 
-          <div class="field-wrap">
-            <label>
-              Password<span class="req">*</span>
-            </label>
-            <input type="password"required autocomplete="off"/>
-          </div>
+          <!--Login Page tabs -->
 
-          <p class="forgot"><a href="#">Forgot Password?</a></p>
+          <div class="col-lg-5 ml-auto order-lg-1" >
 
-          <button class="button button-block"/>signup</button>
+              <ul class="nav nav-tabs">
+                <li class="list-inline-item" >
+                <a data-toggle="tab" href="#login"class="btn btn-secondary btn-lg">
+                <span>Login</span></a>
+                </li>
 
-          </form>
+                <li class="list-inline-item" >
+                <a data-toggle="tab" href="#SignUp" class="btn btn-secondary btn-lg">
+                <span>Sign Up </span></a>
+                </li>
+              </ul>
 
-        </div>
 
-      </div><!-- tab-content -->
+          <!--Login Page form -->
+            <div class="tab-content" >
+              <div id="login" class="tab-pane fade in active show">
+                <form class="form-horizontal" action='.' method="POST">
+                  <fieldset>
+                    <br>
+                    
+                      <legend class=" section-heading " ><p>Welcome Back!</p></legend>
+                 
+                  
+                    <div>
+                      <!-- Username -->
+                      <label class="control-label"  for="username">Username</label>
+                      <div class="controls">
+						<input type="text" required autocomplete="off" name="login_name"/>
+                      </div>
+                    </div>
 
-</div> <!-- /form -->
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+                    <div>
+                      <!-- Password-->
+                      <label class="control-label" for="password">Password</label>
+                      <div class="controls">
+						<input type="password" required autocomplete="off" name="password"/>
+                      </div>
+                    </div>
 
-    <script src="/static/login.js"></script>
+                    <!-- Button -->
+                    <div class = "button">
+						<button type="submit" class="button button-block"/>Log In</button>
+                    </div>
+                  </fieldset>
+              </form>
+            </div>
+			
 
-</body>
+          <!--SignUp Page form -->
+
+            <div id="SignUp" class="tab-pane fade">
+            <div class="tab-content">
+            <div id="signup">  
+              <br>
+             <legend class=" section-heading " ><p>Sign Up for Free!</p></legend> 
+              
+              <form action="." method="post">
+			  
+              <label class="control-label"  for="username"><span class="req">Email Address</span></label>
+                <div class="controls"><div class="top-row">
+                <div class="field-wrap">
+					<input type="email"required autocomplete="off"/>
+                </div>
+              </div>
+
+              <label class="control-label"  for="username"><span class="req">Set Password</span></label>
+                <div class="controls"><div class="top-row">
+                <div class="field-wrap">
+					<input type="password"required autocomplete="off"/>
+                </div>
+              </div>
+
+              <div class = "button">
+                <!-- Button -->
+				<button class="button button-block"/>signup</button>
+				<p class="forgot"><a href="#">Forgot Password?</a></p>
+				</div>
+              </form>
+           </div>
+	</section>
+
+
+
+  </body>
+
 </html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Landing Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+
+        <script>
+          function showUser(str) {
+            if (str=="") {
+              document.getElementById("txtHint").innerHTML="";
+              return;
+            } 
+            if (window.XMLHttpRequest) {
+              // code for IE7+, Firefox, Chrome, Opera, Safari
+              xmlhttp=new XMLHttpRequest();
+            } else { // code for IE6, IE5
+              xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function() {
+              if (this.readyState==4 && this.status==200) {
+                document.getElementById("txtHint").innerHTML=this.responseText;
+              }
+            }
+            xmlhttp.open("GET","getuser.php?q="+str,true);
+            xmlhttp.send();
+          }
+        </script>
+  </head>
+
+  <body>
+    
+    
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href= "#About">The BookStore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+              <a class="nav-link" href="BrowseBooks.html">Browse</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Sign Up">Sign Up</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="intro-header">
+      <div class="container">
+        <div class="intro-message">
+          <h1>The BookStore</h1>
+          <h3>Perfect Place To Find Books</h3>
+          <hr class="intro-divider">            
+            <li class="list-inline-item" >
+              <div class="btn btn-secondary btn-lg">
+                <input type="text" class="searchTerm" placeholder="">
+              </div>
+            </li>
+            <li class="list-inline-item" >
+              <a class="btn btn-secondary btn-lg" href ="SearchResult.html">
+                <span>Search</span>
+              </a>
+            </li>
+            <form action="">
+              <input type="radio" name="filter" value="All" checked = "checked"> All
+              <input type="radio" name="filter" value="Author"> Author
+              <input type="radio" name="filter" value="Publisher"> Publisher
+              <input type="radio" name="filter" value="Title"> Title
+              <input type="radio" name="filter" value="Subject"> Subject
+            </form>
+        </div>
+      </div>
+    </header>
+
+
+
+
+    <!--Login Page Content -->
+    <section class="content-section-a">
+      <div class="container">
+        <div class="row">
+          
+          <!--Login Page tabs -->
+
+          <div class="col" >
+
+              <ul class="nav nav-tabs">
+                <li class="list-inline-item" >
+                <a data-toggle="tab" href="#login" action="" class="btn btn-secondary btn-lg">
+                <span>Store Manager Login</span></a>
+                </li>
+              </ul>
+
+
+          <!--Login Page form -->
+
+            <div class="tab-content" >
+              <div id="login" class="tab-pane fade in active show">
+                <form class="form-horizontal" action='' method="POST">
+                  <fieldset>
+                    <br>
+                    <div id="Login">
+                      <legend class=" section-heading " ><p>Welcome Back!</p></legend>
+                    </div>
+                  
+                    <div>
+                      <!-- Username -->
+                      <label class="control-label"  for="username">Username</label>
+                      <div class="controls">
+                        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+
+                    <div>
+                      <!-- Password-->
+                      <label class="control-label" for="password">Password</label>
+                      <div class="controls">
+                        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class = "button">
+                      <button>Login</button>
+                    </div>
+                  </fieldset>
+              </form>
+            </div>
+
+      <!-- /.container -->
+    </section>
+
+    <section class="content-section-b">
+
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-5 mr-auto order-lg-2">
+            <hr class="section-heading-spacer">
+            <div class="clearfix"></div>
+            <h2 class="section-heading">Most Recommended Book Of The Month<br>By Our Members</h2>
+            <p class="lead">Spend Your Time Wisely Reading Books Recommneded By Other Readers
+              <a target="_blank" href="BrowseBooks.html"><br>See More Books!</a>
+              <br>
+              <br>
+              <br>
+            <p>Total Number Of Orders </p><h2>300</h2><br><p>Number of Recommendations<h2>174 </h2></p>
+          </div>
+          <div class="col-lg-5 ml-auto order-lg-1">
+            <img class="img-fluid" src="img/book3.jpg" alt="">
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container -->
+
+    </section>
+    <!-- /.content-section-b -->
+
+    <section class="content-section-a">
+      <div class="container">
+        <div class="row">
+          <div>
+            <hr class="section-heading-spacer">
+            <div class="clearfix"></div>
+            <h2 class="section-heading">Browse Books</h2>
+          </div>
+        </div>
+        
+          <div class="row">
+              <div class="col ">
+               <img class="img-responsive" src="img/book1.jpg" />
+              </div>
+
+              <div class="col" >
+                 <img class="img-responsive" src="img/book2.jpg" />
+              </div>
+                 
+              <div class="col" >
+                 <img class="img-responsive" src="img/book4.jpg" />
+              </div>
+
+              <div class="col" >
+                 <img class="img-responsive" src="img/book4.jpg" />
+              </div>
+          </div>
+        <br>
+
+        <div class ="row">
+            <div class ="col-5"></div>
+            <div class="col-4"> <a target="_blank" href="http://www.google.com">See More Books!</a></div>
+            <div class ="col-4"></div>
+        </div>    
+      </div>
+    </section>
+
+
+    <!-- /.content-section-a -->
+
+    <aside class="banner">
+
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6 my-auto">
+            <h2>Connect to with us:</h2>
+          </div>
+          <div class="col-lg-6 my-auto">
+            <ul class="list-inline banner-social-buttons">
+              <li class="list-inline-item">
+                <a href="#" class="btn btn-secondary btn-lg">
+                  <i class="fa fa-twitter fa-fw"></i>
+                  <span class="network-name">Twitter</span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#" class="btn btn-secondary btn-lg">
+                  <i class="fa fa-github fa-fw"></i>
+                  <span class="network-name">Github</span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#" class="btn btn-secondary btn-lg">
+                  <i class="fa fa-linkedin fa-fw"></i>
+                  <span class="network-name">LinkedIn</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- /.container -->
+
+    </aside>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <ul class="list-inline">
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="BrowseBooks.html">Browse</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#">Login</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="/index.html #SignUp">Sign Up</a>
+          </li>
+        </ul>
+        <p class="copyright text-muted small">Copyright &copy; The BookStore 2017. All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

@@ -6,6 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/static/custom.css" rel="stylesheet">
 
+	<!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- Bootstrap core JavaScript -->
+	<!-- href="{{ url_for('static', filename='vendor\bootstrap\js\bootstrap.bundle.min.js') }}" -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Custom fonts for this template -->
+    <link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link 	href="{{ url_for('static', filename='css/landing_page.css') }}" rel="stylesheet">
+
+    <style>
+    table {
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        cursor: pointer;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 16px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+        button.accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+    button.accordion.active, button.accordion:hover {
+        background-color: #ccc;
+    }
+
+    button.accordion:after {
+        content: '\002B';
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    button.accordion.active:after {
+        content: "\2212";
+    }
+
+    div.panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+    </style>
+
     <title>Bookstore</title>
 
 </head>
@@ -27,26 +103,167 @@
         </div>
       </nav>
   <br>
-  <p><b>username:</b> {{ username }}</p>
-  <p><b>password:</b> {{ password }}</p>
-  <p><b>first name:</b> {{ first_name }}</p>
-  <p><b>last name:</b> {{ last_name }}</p>
-  <p><b>credit card number:</b> {{ credit_card }}</p>
-  <p><b>address:</b> {{ address }}</p>
-  <p><b>phone number:</b> {{ phone_number }}</p>
-  <p><b>last name:</b> {{ last_name }}</p>
+
+<div class = "row">
+<div class="col-sm-3">
+  <img class="img-fluid rounded-circle mb-3" src = "http://www.behindthevoiceactors.com/_img/chars/ash-ketchum-pokemon-the-first-movie-28.8.jpg">
+  <h3>"Choose it or lose it!" </h3>
+</div>
+<div class="card text-center">
+  <div class="card-header">
+    <h3>Profile Information </h3>
+	
+  </div>
+  <div class="card-block">
+    <h4 class="card-title"><p></p></h4>
+	  <br>
+	  <br>
+		  <div class="row">
+			  <div class="col-sm-6">
+				<h5>username:</h5>
+			  </div>
+			  <div>
+				<h5>{{ username }}</h5>
+			  </div>
+			</div>
+
+			<div class="row">
+			  <div class="col-sm-6">
+				<h5>password:</h5>
+			  </div>
+			    <div>
+				<h5>{{ password }}</h5>
+			    </div>
+			</div>		
+	
+			<div class="row">
+			  <div class="col-sm-6">
+				<h5>first name:</h5>
+			  </div>
+			    <div>
+				  <h5>{{ first_name }}</h5>
+			    </div>
+			</div>			
+
+			<div class="row">
+			  <div class="col-sm-6">
+				<h5>last name:</h5>
+			  </div>
+			    <div>
+				  <h5>{{ last_name }}</h5>
+			    </div>
+			</div>				
+
+			<div class="row">
+			  <div class="col-sm-6">
+				<h5>credit card number:</h5>
+			  </div>
+			    <div>
+				  <h5>{{ credit_card }}</h5>
+			    </div>
+			</div>		
+	
+			<div class="row">
+			  <div class="col-sm-6">
+				<h5>address:</h5>
+			  </div>
+			    <div>
+				  <h5>{{ address }}</h5>
+			    </div>
+			</div>						
+  </div >
+  <div class="card-footer text-muted"> 
+  </div>
+</div>
+
+
+</div>
+<br>
+<br>
+<!-- First panel-->
+<button class="accordion">View past orders</button>
+  <div class="panel" style="overflow: scroll; height:400px;">
+	<section>
+	  <div class ="container">
+		{{ ordertable|safe }}
+	  </div>
+	</section>
+<!--Accompanying code for the accordion table -->
+	<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight){
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      }
+    }
+    </script>
+	</div>
   <br>
-  <h3>Information on orders</h3>
+  <h3>View past feedback</h3>
+<button class="accordion">View past feedback</button>
+  <div class="panel" style="overflow: scroll; height:400px;">
+	<section>
+	  <div class ="container">
+		{{ feedbacktable|safe }}
+	  </div>
+	</section>
+<!--Accompanying code for the accordion table -->
+	<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight){
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      }
+    }
+    </script>
+	</div>
+	<br>
+<h3>Information on ratings</h3>
+<button class="accordion">View past ratings</button>
+  <div class="panel" style="overflow: scroll; height:400px;">
+	<section>
+	  <div class ="container">
+		{{ ratetable|safe }}
+	  </div>
+	</section>
+<!--Accompanying code for the accordion table -->
+	<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight){
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      }
+    }
+    </script>
+	</div>
+
   <br>
-  {{ ordertable|safe }}
   <br>
-  <h3>Information on feedback</h3>
   <br>
-  {{ feedbacktable|safe }}
-  <br>
-  <h3>Information on ratings</h3>
-  <br>
-  {{ ratetable|safe }}
   <br>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
