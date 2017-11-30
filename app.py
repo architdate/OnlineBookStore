@@ -49,6 +49,7 @@ class OrderTable(Table):
     order_qty = Col('quantity')
 
 class FeedbackTable(Table):
+    html_attrs = {"classes":"table", "id": "FeedbackTable", "border": True}
     classes = ['table']
     login_name = Col('username')
     title = Col('book title')
@@ -59,6 +60,7 @@ class FeedbackTable(Table):
     avg_rating = Col('rating')
 
 class RatingTable(Table):
+    html_attrs = {"classes":"table", "id": "RateTable", "border": True}
     classes = ['table']
     title = Col('book title')
     isbn13 = Col('ISBN13')
@@ -75,7 +77,7 @@ class RateTable(Table):
 
 class BrowseTable(Table):
     #classes = ["Banana"]
-    html_attrs = {"classes":"Banana", "table_id": "BrowseTable", "border": True}
+    html_attrs = {"classes":"table", "id": "BrowseTable", "border": True}
     isbn13 = Col('ISBN13')
     title = Col('title')
     authors = Col('authors')
