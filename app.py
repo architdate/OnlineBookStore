@@ -92,7 +92,11 @@ class RecTable(Table):
 	title = Col('book title')
 	isbn13 = Col('ISBN13')
 
-#Make Stat Table class
+class StatsTable(Table):
+	classes = ['table']
+	title = Col('book title')
+	authors = Col('authors')
+	publisher = Col('publisher')
 
 #Make table classes
 
