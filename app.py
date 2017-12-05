@@ -267,7 +267,12 @@ def browse_post():
 		elif optionForm == 'score':
 			sort_order = 'avgscore'
 
-		sqlquery = "select b.isbn13, b.title, b.authors, b.publisher, b.year_of_publication, b.inventory_qty, b.price, b.format as bookformat, b.keywords, b.subject, c.avgscore from (select bo.isbn13, bo.title, bo.authors, bo.publisher, bo.year_of_publication, bo.inventory_qty, bo.price, bo.format, bo.keywords, bo.subject from Books bo{}) as b left outer join (select avg(score) as avgscore, isbn13 from feedback group by isbn13) as c on b.isbn13 = c.isbn13 order by {} desc;".format(wherequery, sort_order)
+		sqlquery = "select b.isbn13, b.title, b.authors, b.publisher, b.year_of_publication, 
+		b.inventory_qty, b.price, b.format as bookformat, b.keywords, b.subject, 
+		c.avgscore from (select bo.isbn13, bo.title, bo.authors, bo.publisher, bo.year_of_publication, 
+				 bo.inventory_qty, bo.price, bo.format, bo.keywords, bo.subject from Books bo{}) 
+		as b left outer join (select avg(score) as avgscore, isbn13 from feedback group by isbn13) 
+		as c on b.isbn13 = c.isbn13 order by {} desc;".format(wherequery, sort_order)
 
 		print(sqlquery)
 
@@ -277,7 +282,8 @@ def browse_post():
 			booklist.append(row)
 
 		booktable = BrowseTable(booklist)
-		return render_template('bookpage.html', booktable='<h2>Browse Results</h2> <br>'+booktable.__html__(), manager=manager)
+		return render_template('bookpage.html', booktable='<h2>Browse Results</h2> <br>'+booktable.__html__(), 
+				       manager=manager)
 
 	# Question 6
 
@@ -303,11 +309,21 @@ def browse_post():
 		limitForm = request.form['topfeedback']
 		login_name=session['login_name']
 		feedbackList = []
-		qresult = db.engine.execute("select t1.login_name, t1.title, t1.isbn13, t1.score, t1.short_text as short_text, t1.feedback_date, t2.avg_rating from (select fb.login_name, b.title, fb.isbn13, fb.score, fb.short_text, fb.feedback_date from Feedback fb, Books b where fb.isbn13 = '{}' and b.isbn13 = fb.isbn13) as t1 left outer join (select login_name, isbn13, avg(rating) as avg_rating from Rate where isbn13 = '978-1501138003' group by login_name, isbn13) as t2 on t1.login_name = t2.login_name order by t2.avg_rating desc limit {};".format(isbn13Form, limitForm))
+		qresult = db.engine.execute("select t1.login_name, t1.title, t1.isbn13, t1.score, t1.short_text as short_text, 
+					    t1.feedback_date, t2.avg_rating 
+					    from (select fb.login_name, b.title, fb.isbn13, fb.score, fb.short_text, 
+						  fb.feedback_date from Feedback fb, Books b where fb.isbn13 = '{}' 
+						  and b.isbn13 = fb.isbn13) 
+					    as t1 left outer join (select login_name, isbn13, avg(rating) 
+								   as avg_rating from Rate where isbn13 = '978-1501138003' 
+								   group by login_name, isbn13) as t2 on 
+					    t1.login_name = t2.login_name 
+					    order by t2.avg_rating desc limit {};".format(isbn13Form, limitForm))
 		for row in qresult:
 			feedbackList.append(row)
 		feedbacktable = FeedbackTable(feedbackList)
-		return render_template('bookpage.html', booktable='<h3>Top '+limitForm+' Feedback for the book</h3> <br>'+feedbacktable.__html__(), manager=manager)
+		return render_template('bookpage.html', booktable='<h3>Top '+limitForm+' Feedback for the book</h3> <br>'
+				       +feedbacktable.__html__(), manager=manager)
 
 	# Question 7
 
@@ -392,18 +408,27 @@ def order_post():
 				book_curr_qty = rs[0]
 			tempqty = int(book_curr_qty) - copies
 			if tempqty < 0:
-				return render_template('bookpage.html', booktable='Sorry, one or more books you ordered is/are out of stock or you have ordered more than the available quantity.', manager=manager)
+				return render_template('bookpage.html', booktable='Sorry, one or more books you ordered is/are 
+						       out of stock or you have ordered more than the available quantity.', 
+						       manager=manager)
 			db.engine.execute("update books set inventory_qty = {} where isbn13 = '{}'".format(tempqty, isbn13))
-			db.engine.execute("insert into Ordered_books (orderid, customer, order_date, order_status) values ('{}','{}',DATE '{}','{}');".format(orderid, customer, date, status))
+			db.engine.execute("insert into Ordered_books (orderid, customer, order_date, order_status) 
+					  values ('{}','{}',DATE '{}','{}');".format(orderid, customer, date, status))
 			db.engine.execute("insert into Orders values ('{}','{}','{}');".format(orderid, isbn13, copies))
-			recom = db.engine.execute("select title, isbn13 from books where isbn13 in (select isbn13 from orders where isbn13 <> '{}' AND orderid in (select orderid from ordered_books where customer in (select customer from ordered_books where orderid in (select orderid from orders where isbn13 = '{}'))) group by isbn13 order by sum(order_qty) desc);".format(isbn13,isbn13))
+			recom = db.engine.execute("select title, isbn13 from books where isbn13 
+						  in (select isbn13 from orders where isbn13 <> '{}' 
+						      AND orderid in (select orderid from ordered_books where customer 
+								      in (select customer from ordered_books where orderid 
+									  in (select orderid from orders where isbn13 = '{}'))) 
+						      group by isbn13 order by sum(order_qty) desc);".format(isbn13,isbn13))
 			for rc in recom:
 				if rc not in recolist:
 					recolist.append(rc)
 			index += 1
 			orderid += 1
 		except Exception:
-			return render_template('bookpage.html', booktable='Something went wrong, please check your order again.', manager=manager)
+			return render_template('bookpage.html', booktable='Something went wrong, please check your order again.', 
+					       popularmanager=manager)
 	reco = RecTable(recolist)
 	return render_template('recommendation.html', recommendation=reco.__html__(), manager=manager)
 
