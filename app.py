@@ -95,7 +95,17 @@ class RecTable(Table):
     title = Col('book title')
     isbn13 = Col('ISBN13')
 
-#Make Stat Table class
+class StatTable(Table):
+	classes = ['table']
+	title = Col('book title')
+	authors = Col('authors')
+	publisher = Col('publisher')
+
+class StatTableEntry(object):
+	def __init__(self, title, authors, publisher):
+		self.title = title
+		self.authors = authors
+		self.publisher = publisher
 
 #Make table classes
 
@@ -459,6 +469,54 @@ def addcopy_post():
         return render_template('manager.html', record='', add='The book for the ISBN13 doesn\'t exist, please check your entries again.')
 
 
+
+@app.route('/manager/statistics', methods=['POST'])
+def statistics():
+	date = time.strftime("%Y-%m-%d")
+
+	m = int(request.form['top'])
+	if m>5000:
+		return render_template('manager.html', record='', add='m value is too large, please try a smaller value!')
+	month = request.form['month']
+	year = request.form['year']
+	titlelist = []
+	authorlist = []
+	publisherlist = []
+	statslist = []
+
+	db.engine.execute("create table temp_table select ISBN13 , sum(order_qty) as total_qty from orders where orderid in (select orderid from ordered_books where year(order_date) = '%s' and month(order_date) = '%s') group by ISBN13 order by total_qty desc limit %s" % (year, month, m))
+
+	titlestat = db.engine.execute("select title from books join temp_table on books.ISBN13 = temp_table.ISBN13;")
+	for ts in titlestat:
+		titlelist.append(ts.title)
+
+	authorstat = db.engine.execute("select authors from books join temp_table on books.ISBN13 = temp_table.ISBN13;")
+	for ast in authorstat:
+		authorlist.append(ast.authors)
+
+	publisherstat = db.engine.execute("select publisher from books join temp_table on books.ISBN13 = temp_table.ISBN13;")
+	for ps in publisherstat:
+		publisherlist.append(ps.publisher)
+
+	for i in range(0,m):
+		try:
+			arg1 = titlelist[i]
+		except IndexError:
+			arg1 = ''
+		try:
+			arg2 = authorlist[i]
+		except IndexError:
+			arg2 = ''
+		try:
+			arg3 = publisherlist[i]
+		except IndexError:
+			arg3 = ''
+		statslist.append(StatTableEntry(arg1, arg2, arg3))
+
+	stats = StatTable(statslist)
+	db.engine.execute("drop table temp_table")
+
+	return render_template('statistics.html', stats=stats.__html__())
 
 ##########################################################################################
 #                       Running the application                                          #
