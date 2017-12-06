@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link 	href="{{ url_for('static', filename='css/landing_page.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/landing_page.css') }}" rel="stylesheet">
 
 
 </head>
@@ -116,6 +116,8 @@
   
 <!-- This is the section where the book table is returned -->
     <br>
+	<br>
+	<br>
 	<div style = "height: 300px; overflow-y: scroll;">
     {{ booktable|safe }}
 	</div>
@@ -176,7 +178,6 @@
 					  
                       <label class="control-label" >Comments</label>
                       <div class="controls">
-						<p>Enter your feedback details below.</p>
 						<input type="text" name="comment" placeholder="comment (optional)">
                       </div>
                     </div>

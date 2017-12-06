@@ -184,6 +184,15 @@
 			    <div>
 				  <h5>{{ address }}</h5>
 			    </div>
+			</div>				
+			
+			<div class="row">
+			  <div class="col-sm-6">
+				<h5>phone number:</h5>
+			  </div>
+			    <div>
+				  <h5>{{ phone_number }}</h5>
+			    </div>
 			</div>						
   </div >
   <div class="card-footer text-muted"> 
@@ -196,7 +205,7 @@
 <br>
 <!-- First panel-->
 <button class="accordion">View past orders</button>
-  <div class="panel" style="overflow: scroll; height:400px;">
+  <div class="panel" >
 	<section>
 	  <div class ="container">
 		{{ ordertable|safe }}
@@ -223,7 +232,7 @@
   <br>
   <h3>View past feedback</h3>
 <button class="accordion">View past feedback</button>
-  <div class="panel" style="overflow: scroll; height:400px;">
+  <div class="panel">
 	<section>
 	  <div class ="container">
 		{{ feedbacktable|safe }}
@@ -250,7 +259,7 @@
 	<br>
 <h3>Information on ratings</h3>
 <button class="accordion">View past ratings</button>
-  <div class="panel" style="overflow: scroll; height:400px;">
+  <div class="panel">
 	<section>
 	  <div class ="container">
 		{{ ratetable|safe }}
