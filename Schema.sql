@@ -59,3 +59,10 @@ create table Orders (
 		primary key (orderid,ISBN13),
 		foreign key (orderid) references Ordered_books(orderid),
 		foreign key (ISBN13) references Books(ISBN13));
+		
+#Create trigger 
+#On new entry in Orders subtract number of copies oredered from book inventory qty
+CREATE TRIGGER updateOrders AFTER INSERT ON Orders
+FOR EACH ROW
+UPDATE Books SET Books.inventory_qty = Books.inventory_qty - NEW.order_qty WHERE Books.ISBN13 = NEW.ISBN13;
+

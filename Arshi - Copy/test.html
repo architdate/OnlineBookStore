@@ -1,0 +1,549 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Landing Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/landing-page.css" rel="stylesheet">
+	<!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+    <style>
+    table {
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        cursor: pointer;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 16px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+        button.accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+    button.accordion.active, button.accordion:hover {
+        background-color: #ccc;
+    }
+
+    button.accordion:after {
+        content: '\002B';
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    button.accordion.active:after {
+        content: "\2212";
+    }
+
+    div.panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href= "#About">The BookStore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+			  <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+			  <a class="nav-item nav-link" href="/browse/">Browse</a>
+            </li>
+            <li class="nav-item">
+			  <a class="nav-item nav-link" href="/getrecord/">Profile</a>
+            </li>
+			<li class="nav-item">
+			 {{ manager|safe }}
+            </li>
+			<li class="nav-item">
+				<a class="nav-item nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
+	
+	
+<button class="accordion">Filter By Popularity</button>
+	<div class="panel" style="overflow-y: scroll; height:400px;">
+	<section>
+        <div class ="container">
+        <br>
+        <br>
+		<th>Hi</th>
+        <br>
+			<div class="btn-ground" align= "right">
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Save </button>
+            </div>
+	</div>
+	</section>
+<!--Accompanying code for the accordion table -->
+	<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight){
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      }
+    }
+    </script>
+	</div>
+	
+	
+<!-- testing out the get values from selecting a table row-->
+<table id="myTable" class = "table" cellspacing="1">             
+    <thead>
+        <tr> 
+            <th>first name</th> 
+            <th>last name</th> 
+            <th>age</th> 
+            <th>total</th> 
+            <th>discount</th> 
+            <th>diff</th> 
+        </tr> 
+    </thead> 
+    <tbody> 
+        <tr> 
+            <td>peter</td> 
+            <td>parker</td> 
+            <td>28</td> 
+            <td>9.99</td> 
+            <td>20.3%</td> 
+            <td>+3</td> 
+        </tr> 
+        <tr> 
+            <td>john</td> 
+            <td>hood</td> 
+            <td>33</td> 
+            <td>19.99</td> 
+            <td>25.1%</td> 
+            <td>-7</td> 
+        </tr> 
+        <tr> 
+            <td>clark</td> 
+            <td>kent</td> 
+            <td>18</td> 
+            <td>15.89</td> 
+            <td>44.2%</td> 
+            <td>-15</td> 
+        </tr> 
+        <tr> 
+            <td>bruce</td> 
+            <td>almighty</td> 
+            <td>45</td> 
+            <td>153.19</td> 
+            <td>44%</td> 
+            <td>+19</td> 
+        </tr> 
+        <tr> 
+            <td>bruce</td> 
+            <td>evans</td> 
+            <td>56</td> 
+            <td>153.19</td> 
+            <td>23%</td> 
+            <td>+9</td> 
+        </tr> 
+    </tbody> 
+</table>
+
+Firstname is:<input type="text" id="firstname" />
+<br>
+Lastname is:<input type="text" id="lastname" />
+<br>
+Age is:<input type="text" id="age" />
+<br>
+Total is:<input type="text" id="total" />
+<br>
+Discount is:<input type="text" id="discount" />
+<br>
+Diff is:<input type="text" id="diff" />
+<br>
+
+<input type="text" name="isbn13" placeholder="ISBN13" required>
+
+<script>
+var table = document.getElementById( 'myTable' ),
+    inputHash = {
+        '0': 'firstname',
+        '1': 'lastname',
+        '2': 'age',
+        '3': 'total',
+        '4': 'discount',
+        '5': 'diff'
+    };
+	
+var isbn = document.getElementsByName("isbn13"); 
+
+for ( var i in inputHash )
+    inputHash[ i ] = document.getElementById( inputHash[ i ] );//Ref the text box 
+
+table.addEventListener( 'click', function( evt ) {
+    var target = evt.target;//Clicked the table's "TD"
+    
+    if ( target.nodeName != 'TD' )
+        return;
+    
+    var columns = target.parentNode.getElementsByTagName( 'td' );
+    
+    for ( var i = columns.length; i-- ; )
+        inputHash[ i ].value = columns[ i ].innerHTML;//Auto complete the has table 
+	for (var i = isbn.length; i-- ; ){
+			isbn[i].value = columns[ 0 ].innerHTML;}
+	<!-- TODO: Check if the tab state is in order then just concatenate the titles/ ISBN-->
+} );
+</script>
+
+
+
+<!-- The tab section-->
+        <script>
+
+        </script>
+          <!--Login Page tabs -->
+          <div class="col-lg-5 ml-auto order-lg-1" >
+
+              <ul class="nav nav-tabs">
+                <li class="list-inline-item" >
+                <a data-toggle="tab" href="#FeedBack"class="btn btn-secondary btn-lg">
+                <span>Give Feedback</span></a>
+                </li>
+
+                <li class="list-inline-item" >
+                <a data-toggle="tab" href="#Comments" class="btn btn-secondary btn-lg">
+                <span>View Comments </span></a>
+                </li>
+				
+				<li class="list-inline-item" >
+                <a data-toggle="tab" href="#Rate" class="btn btn-secondary btn-lg">
+                <span>Rate Feedback</span></a>
+                </li>
+				
+				<li class="list-inline-item" >
+                <a data-toggle="tab" href="#Order" class="btn btn-secondary btn-lg">
+                <span>Order</span></a>
+                </li>
+              </ul>
+
+          <!--Login Page form -->
+<div class="tab-content" style = "height: 800px">
+	<div id="FeedBack" class="tab-pane fade in active show">
+		<form class="form-horizontal" action="." method="POST">
+			<fieldset>
+				<br>
+                    <legend class="section-heading" > <h2>Feedback for Book</h2></legend>
+                    <div>
+                      <!-- ISBN-13 -->
+                      <label class="control-label" >Book ISBN-13</label>
+                      <div class="controls">
+                        <input type="text" name="feedback_isbn13" placeholder="ISBN13" required>
+                      </div>
+                    </div>
+					<br>                    
+					
+					<div>
+                      <!-- score -->
+                      <label class="control-label"  >Book ISBN-13</label>
+                      <div class="controls">
+						<input type="number" min="0" max="10" name="score" placeholder="score" required>
+                      </div>
+                    </div>
+					<br>					
+					
+					<div>
+                      <!-- comment -->
+					  
+                      <label class="control-label" >Comments</label>
+                      <div class="controls">
+						<p>Enter your feedback details below.</p>
+						<input type="text" name="comment" placeholder="comment (optional)" style="width: 300px; height: 100px;">
+                      </div>
+                    </div>
+					<br>                      
+					
+                      <div class="controls">
+						<input type="submit" name="my-form" value="Feedback" required>
+                      </div>
+					<br>
+			</fieldset>
+		</form>
+	</div>
+	
+	
+	<div id="Comments" class="tab-pane fade">
+		<form class="form-horizontal" action="." method="POST">
+			<fieldset>
+				<br>
+                    <legend class="section-heading" ><h2>Check out what others feel about this book</h2></legend>
+                    <div>
+                      <!-- ISBN-13 -->
+                      <label class="control-label" >Book ISBN-13</label>
+                      <div class="controls">
+                        <input type="text" name="feedback_isbn13" placeholder="ISBN13" required>
+                      </div>
+                    </div>
+					<br>                    
+					
+					<div>
+                      <!-- score -->
+                      <label class="control-label"  >Book ISBN-13</label>
+                      <div class="controls">
+						<input type="text" name="topfeedback_isbn13" placeholder="ISBN13" required>
+                      </div>
+                    </div>
+					<br>					
+														   							
+					<div>
+                      <!-- comment -->					  
+                      <label class="control-label" >Rate feedback</label>
+                      <div class="controls">
+						<p>How do you feel about this feedback?</p>
+						<input type="number" min="1" name="topfeedback" placeholder="number" required>
+                      </div>
+                    </div>
+					<br>                      
+					
+                      <div class="controls">
+						<input type="submit" name="my-form" value="Get Top Feedback" required>
+                      </div>
+					<br>
+			</fieldset>
+		</form>
+	</div>	
+	
+	<div id="Rate" class="tab-pane fade">
+		<form class="form-horizontal" action="." method="POST">
+			<fieldset>
+				<br>
+                    <legend class="section-heading" ><h2>Rate Feedback</h2></legend>
+					<p>Pick the feedback you wish to rate below. 0 for useless, 1 for useful, 2 for very useful.</p>
+                    <div>
+                      <!-- ISBN-13 -->
+                      <label class="control-label" >Book ISBN-13</label>
+                      <div class="controls">
+						<input type="text" name="login_name" placeholder="Name" required>
+                      </div>
+                    </div>
+					<br>                    
+										
+					<div>
+                      <!-- score -->
+                      <label class="control-label"  >Book ISBN-13</label>
+                      <div class="controls">
+						<input type="text" name="rate_isbn13" placeholder="ISBN13" required>
+                      </div>
+                    </div>
+					<br>					
+														   							
+					<div>
+                      <!-- comment -->					  
+                      <label class="control-label" >Rate feedback</label>
+                      <div class="controls">
+						<p>How do you feel about this feedback?</p>
+						<input type="number" min="0" max="2" step="1" name="rating" placeholder="Rating" required>
+                      </div>
+                    </div>
+					<br>                      
+					
+                      <div class="controls">
+						<input type="submit" name="my-form" value="Rate" required>
+                      </div>
+					<br>
+			</fieldset>
+		</form>
+	</div>	
+	
+	<div id="Order" class="tab-pane fade">
+		<form class="form-horizontal" action="." method="POST">
+			<fieldset>
+				<br>
+                    <legend class="section-heading" ><h2>Order Books</h2></legend>
+					<p>Pick the feedback you wish to rate below. 0 for useless, 1 for useful, 2 for very useful.</p>
+					<p>Enter your order details below.</p>
+					<p>Please separate your orders with commas(',') without any spaces.</p>
+                    <div>
+                      <!-- ISBN-13 -->
+                      <label class="control-label" >Book ISBN-13</label>
+                      <div class="controls">
+						<input type="text" name="isbn13" placeholder="ISBN13" required>
+                      </div>
+                    </div>
+					<br>                    
+						
+					<div>
+                      <!-- score -->
+                      <label class="control-label" >Number of copies</label>
+                      <div class="controls">
+                              <input type="text" name="copies" placeholder="number of copies" required>
+
+					  </div>
+                    </div>
+					<br>																			   					                 
+					
+                      <div class="controls">
+						<input type="submit" name="my-form" value="Order" required>
+                      </div>
+					<br>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+<div class="card text-center" style = "border-color: black; border-width: thick; margin: 100px">
+  <div class="card-header" style = "background-color: #4169E1; color: white; border-color: black; border-width: thick;">
+    <h3>Welcome back manager!</h3>
+  </div>
+  <div class="card-block">
+    <h4 class="card-title">What would you like to do?</h4>
+	  <br>
+	  <br>
+	  <a href="/manager/recordnew">
+        <button type="button" class="btn btn-primary">Record a New Book</button>
+      </a>
+	  <br>
+	  <br>
+      <a href="/manager/addcopy">
+        <button type="button" class="btn btn-primary">Add Copies for Existing Book</button>
+      </a>
+	  <br>
+	  <br>
+
+      <h4 class="card-title">Get Monthly Statistics</h4>
+	  <p>Enter your preferred report criteria below.</p>
+      <form action="/manager/statistics" method="POST">
+          <input type="number" name="top" min='1' step='1' placeholder="top m" required>
+		  <br>
+          <input type="number" name="month" min='1' max='12' step='1' placeholder="month" required>
+		  <br>
+          <input type="number" name="year" min='1' step='1' placeholder="year" required>
+		  <br>
+          <input type="submit" name="my-form" value="Get Report" required>
+		  <button type="button" class="btn btn-primary" name = "my-form" value="Get Report">Add Copies for Existing Book</button>
+		  <br>
+
+	  </form>
+	  <br>
+
+
+  </div style = "border-color: black; border-width: thick;">
+  <div class="card-footer text-muted" style = "border-color: black; border-width: thick;"> 
+  </div>
+</div>
+	
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1 class="page-header">Bookstore Application</h1>
+          </div>
+        </div>
+        <nav class="navbar navbar-light bg-faded">
+          <div class="nav navbar-nav">
+            <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/browse/">Browse</a>
+            <a class="nav-item nav-link" href="/getrecord/">Profile</a>
+            <a class="nav-item nav-link active" href="/manager">Manager</a>
+            <a class="nav-item nav-link" href="/logout">Logout</a>
+          </div>
+        </nav>
+    <br>
+
+<div class="card text-center" style = "border-color: black; border-width: thick; margin: 100px">
+  <div class="card-header" style = "background-color: #4169E1; color: white; border-color: black; border-width: thick;">
+    <h3>Welcome back manager!</h3>
+  </div>
+  <div class="card-block">
+    <h4 class="card-title">What would you like to do?</h4>
+	  <br>
+	  <br>
+	  <a href="/manager/recordnew">
+        <button type="button" class="btn btn-primary">Record a New Book</button>
+      </a>
+	  <br>
+	  <br>
+      <a href="/manager/addcopy">
+        <button type="button" class="btn btn-primary">Add Copies for Existing Book</button>
+      </a>
+	  <br>
+	  <br>
+
+      <h4 class="card-title">Get Monthly Statistics</h4>
+	  <p>Enter your preferred report criteria below.</p>
+      <form action="/manager/statistics" method="POST">
+          <input type="number" name="top" min='1' step='1' placeholder="top m" required>
+		  <br>
+          <input type="number" name="month" min='1' max='12' step='1' placeholder="month" required>
+		  <br>
+          <input type="number" name="year" min='1' step='1' placeholder="year" required>
+		  <br>
+          <input type="submit" name="my-form" value="Get Report" required>
+		  <br>
+			<div class="row">
+			  <div class="col-sm-4">.col-sm-3</div>
+			  <div class="col-sm-6">.col-sm-6</div>
+			</div>
+
+	  </form>
+	  <br>
+
+
+  </div style = "border-color: black; border-width: thick;">
+  <div class="card-footer text-muted" style = "border-color: black; border-width: thick;"> 
+  </div>
+</div>
+
+
+		
+</body>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+
+	<link rel="stylesheet" href="/static/style.css">
+
+
+    <title>Bookstore</title>
+
+</head>
+<body>
+ <div class="form">
+  <h1>Welcome to the Book Store</h1>
+	<h2>Enter your new account details below</h2>
+
+	<form action="." method="POST">
+	    <input type="text" name="first_name" required autocomplete="off" maxlength="20" placeholder="First Name">
+	    <input type="text" name="last_name" required autocomplete="off" maxlength="20" placeholder="Last Name">
+	    <input type="text" name="username" required autocomplete="off" maxlength="20" placeholder="Username">
+	    <input type="password" name="password" required autocomplete="off" maxlength="20" placeholder="Password">
+	    <input type="text" name="address" required autocomplete="off" maxlength="50" placeholder="Address">
+	    <input type="number" name="ccno" required autocomplete="off" min="0" maxlength="20" placeholder="Credit Card Number">
+	    <input type="number" name="phone" required autocomplete="off" min="0" maxlength="20" placeholder="Phone Number">
+	    <button type="submit" name="my-form" value="register" class="button button-block"/>Register</button>
+	</form>
+  <p> {{ regerror }} </p>
+  	<form action="." method="POST">
+  	<button type="submit"  name="my-form" value="back" class="button button-block"/>Back to Login</button>
+  	</form>
+	<br>
+  </div>
+</body>

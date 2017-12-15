@@ -7,52 +7,92 @@
     <link href="/static/custom.css" rel="stylesheet">
 
     <title>Bookstore</title>
+	<!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+	<!-- Bootstrap core JavaScript -->
+	<!-- href="{{ url_for('static', filename='vendor\bootstrap\js\bootstrap.bundle.min.js') }}" -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Custom fonts for this template -->
+    <link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link 	href="{{ url_for('static', filename='css/landing_page.css') }}" rel="stylesheet">
+    <!-- Custom styles for this template -->	
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Bookstore Application</h1>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href= "#About">The BookStore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+			  <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+			  <a class="nav-item nav-link" href="/browse/">Browse</a>
+            </li>
+            <li class="nav-item">
+			  <a class="nav-item nav-link" href="/getrecord/">Profile</a>
+            </li>
+			<li class="nav-item">
+			 {{ manager|safe }}
+            </li>
+			<li class="nav-item">
+				<a class="nav-item nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
         </div>
-        <nav class="navbar navbar-light bg-faded">
-          <div class="nav navbar-nav">
-            <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link active" href="/browse/">Browse</a>
-            <a class="nav-item nav-link" href="/getrecord/">Profile</a>
-            {{ manager|safe }}
-            <a class="nav-item nav-link" href="/logout">Logout</a>
-          </div>
-        </nav>
-
-    <br>
-
-    <h2>Book Search</h2>
-    <p>Search for books. (Not all boxes need to be filled up)</p>
-    <form action="." method="POST">
-        <input type="text" name="author" placeholder="author"> AND
-        <input type="text" name="publisher" placeholder="publisher"> AND
-        <input type="text" name="title" placeholder="book title"> AND
-        <input type="text" name="subject" placeholder="subject">
+      </div>
+    </nav>
+	
+    <!-- Header for the search section-->
+    <header class="intro-header">
+      <div class="container">
+        <div class="intro-message">
+          <h1>The BookStore</h1>
+          <h3>Perfect Place To Find Books</h3>
+		  <h3>Not all boxes need to be filled up</h3>          
+          <hr class="intro-divider">  
+			    <form action="." method="POST">
+		<div class="btn btn-secondary btn-lg">		
+		<li class="list-inline-item" >
+        <input class="searchTerm" type="text" name="author" placeholder="author"> AND
+        <input class="searchTerm" type="text" name="publisher" placeholder="publisher"> AND
+        <input class="searchTerm" type="text" name="title" placeholder="book title"> AND
+        <input class="searchTerm" type="text" name="subject" placeholder="subject"> ALLSEARCH
+		<input type="text" name="basicsearch" placeholder="keyword search">
+		 </li>
+		  </div>
         <br>
         <br>
         <p>Sort By</p>
-        <div class="btn-group" data-toggle="buttons">
+        <div class="btn-group" data-toggle="buttons" for = "option1">
             <label class="btn btn-primary active">
                 <input type="radio" name="options" id="option1" value='score' checked> Score
             </label>
-            <label class="btn btn-primary">
-                <input type="radio" name="options" id="option2" value='year'> Year
+            <label class="btn btn-primary" for = "option2">
+                <input type="radio" name="options" id="option2" value='year' > Year
             </label>
         </div>
         <br>
         <br>
         <button type="submit" name="my-form" value="search" class="btn btn-secondary">Search</button>
     </form>
-    </div>
-    
+        </div>
+      </div>
+    </header>
 
 </body>
 

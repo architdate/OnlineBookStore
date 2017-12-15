@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/static/custom.css" rel="stylesheet">
+
+    <title>Bookstore</title>
+
+</head>
+
+<body>
+
+
+	
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Bookstore Application</h1>
+            </div>
+        </div>
+        <nav class="navbar navbar-light bg-faded">
+          <div class="nav navbar-nav">
+            <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="/browse/">Browse</a>
+            <a class="nav-item nav-link" href="/getrecord/">Profile</a>
+            {{ manager|safe }}
+            <a class="nav-item nav-link" href="/logout">Logout</a>
+          </div>
+        </nav>
+
+    <br>
+
+    <h2>Book Search</h2>
+    <p>Search for books. (Not all boxes need to be filled up)</p>
+    <form action="." method="POST">
+        <input type="text" name="author" placeholder="author"> AND
+        <input type="text" name="publisher" placeholder="publisher"> AND
+        <input type="text" name="title" placeholder="book title"> AND
+        <input type="text" name="subject" placeholder="subject">
+        <br>
+        <br>
+        <p>Sort By</p>
+        <div class="btn-group" data-toggle="buttons" for = "option1">
+            <label class="btn btn-primary active">
+                <input type="radio" name="options" id="option1" value='score' > Score
+            </label>
+            <label class="btn btn-primary" for = "option2">
+                <input type="radio" name="options" id="option2" value='year' > Year
+            </label>
+        </div>
+        <br>
+        <br>
+        <button type="submit" name="my-form" value="search" class="btn btn-secondary">Search</button>
+    </form>
+    </div>
+    
+
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+</html>
