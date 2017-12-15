@@ -397,12 +397,12 @@ def order_post():
         try:
             isbn13 = isbn13list[index]
             copies = int(copieslist[index])
-            for rs in db.engine.execute("select inventory_qty from Books where isbn13 = '{}'".format(isbn13)):
+            for rs in db.engine.execute("select inventory_qty from Books where isbn13 = '{}'".format(isbn13)): #Select the current inventory 
                 book_curr_qty = rs[0]
             tempqty = int(book_curr_qty) - copies
             if tempqty < 0:
                 return render_template('bookpage.html', booktable='Sorry, one or more books you ordered is/are out of stock or you have ordered more than the available quantity.', manager=manager)
-            db.engine.execute("update books set inventory_qty = {} where isbn13 = '{}'".format(tempqty, isbn13))
+            #db.engine.execute("update books set inventory_qty = {} where isbn13 = '{}'".format(tempqty, isbn13))
             db.engine.execute("insert into Ordered_books (orderid, customer, order_date, order_status) values ('{}','{}',DATE '{}','{}');".format(orderid, customer, date, status))
             db.engine.execute("insert into Orders values ('{}','{}','{}');".format(orderid, isbn13, copies))
             recom = db.engine.execute("select title, isbn13 from books where isbn13 in (select isbn13 from orders where isbn13 <> '{}' AND orderid in (select orderid from ordered_books where customer in (select customer from ordered_books where orderid in (select orderid from orders where isbn13 = '{}'))) group by isbn13 order by sum(order_qty) desc);".format(isbn13,isbn13))
