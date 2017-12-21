@@ -1,5 +1,11 @@
 # OnlineBookStore
 Bookstore App for Database Mod 50.008
+## Contributors
+Amish Bhandari *1001614*
+Archit Date *1001695*
+Sidney Suen *1001525*
+Arshi Dalvi *1001768*
+Nickson Guay *1000998*
 
 # Installation
 To pull the repository, run the following command
@@ -48,6 +54,13 @@ Then to run the app run this command
 python app.py
 ```
 Note: Make sure you update your own database credentials in the `app.py` file.
+
+# Comments for Grader
+- We used git for collaboration. Once we had a functional app on master, any further work was done on branches.
+- We used and then modified the basic Bootstrap framework for our styling
+- We also used standard libraries to obtain data from and to push the data to the frontend HTML pages
+- To find our sql executions, look for the `db.engine.execute()` function calls in our code. Each requirement from *project.pdf* is indicated in *app.py* with docstrings with `Question X`
+
 
 # Disclaimer
 

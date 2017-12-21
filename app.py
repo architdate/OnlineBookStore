@@ -264,7 +264,7 @@ def browse_post():
         if subjectForm:
             wherequery += " bo.subject = '{}'".format(subjectForm)
         if allquery:
-            wherequery += " (bo.authors = '{}' or bo.publisher = '{}' or bo.title = '{}' or bo.subject = '{}')".format(allquery, allquery, allquery, allquery)    
+            wherequery += " (bo.authors = '{}' or bo.publisher = '{}' or bo.title = '{}' or bo.subject = '{}')".format(allquery, allquery, allquery, allquery)
         if wherequery == " where":
             wherequery = ""
         if wherequery[-3:] =="and":
@@ -291,7 +291,7 @@ def browse_post():
         booktable = BrowseTable(booklist)
         return render_template('bookpage.html', booktable='<h2>Browse Results</h2> <br>'+booktable.__html__(), manager=manager)
 
-    # Question 6
+    ''' Question 6 '''
 
     elif request.form['my-form'] == 'Feedback':
         isbn13Form = request.form['feedback_isbn13']
@@ -308,7 +308,7 @@ def browse_post():
             return render_template('bookpage.html', booktable='Something went wrong, please try again', manager=manager)
         return render_template('bookpage.html', booktable=success, manager=manager)
 
-    # Question 9
+    ''' Question 9  '''
 
     elif request.form['my-form'] == 'Get Top Feedback':
         isbn13Form = request.form['topfeedback_isbn13']
@@ -321,7 +321,7 @@ def browse_post():
         feedbacktable = FeedbackTable(feedbackList)
         return render_template('bookpage.html', booktable='<h3>Top '+limitForm+' Feedback for the book</h3> <br>'+feedbacktable.__html__(), manager=manager)
 
-    # Question 7
+    ''' Question 7 '''
 
     elif request.form['my-form'] == 'Rate':
         login_nameForm = request.form['login_name']
@@ -400,7 +400,7 @@ def order_post():
         try:
             isbn13 = isbn13list[index]
             copies = int(copieslist[index])
-            for rs in db.engine.execute("select inventory_qty from Books where isbn13 = '{}'".format(isbn13)): #Select the current inventory 
+            for rs in db.engine.execute("select inventory_qty from Books where isbn13 = '{}'".format(isbn13)): #Select the current inventory
                 book_curr_qty = rs[0]
             tempqty = int(book_curr_qty) - copies
             if tempqty < 0:
