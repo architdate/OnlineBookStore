@@ -1,11 +1,11 @@
 # OnlineBookStore
 Bookstore App for Database Mod 50.008
 ## Contributors
-Amish Bhandari *1001614*
-Archit Date *1001695*
-Sidney Suen *1001525*
-Arshi Dalvi *1001768*
-Nickson Guay *1000998*
+- Amish Bhandari *1001614*
+- Archit Date *1001695*
+- Sidney Suen *1001525*
+- Arshi Dalvi *1001768*
+- Nickson Guay *1000998*
 
 # Installation
 To pull the repository, run the following command
