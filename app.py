@@ -293,7 +293,7 @@ def browse_post():
 
     ''' Question 6 '''
 
-    elif request.form['my-form'] == 'Feedback':
+    if request.form['my-form'] == 'Feedback':
         isbn13Form = request.form['feedback_isbn13']
         scoreForm = request.form['score']
         commentForm = request.form['comment']
@@ -310,7 +310,7 @@ def browse_post():
 
     ''' Question 9  '''
 
-    elif request.form['my-form'] == 'Get Top Feedback':
+    if request.form['my-form'] == 'Get Top Feedback':
         isbn13Form = request.form['topfeedback_isbn13']
         limitForm = request.form['topfeedback']
         login_name=session['login_name']
@@ -323,7 +323,7 @@ def browse_post():
 
     ''' Question 7 '''
 
-    elif request.form['my-form'] == 'Rate':
+    if request.form['my-form'] == 'Rate':
         login_nameForm = request.form['login_name']
         isbn13Form = str(request.form['rate_isbn13'])
         rateForm = int(request.form['rating'])
