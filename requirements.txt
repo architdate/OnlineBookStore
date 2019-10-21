@@ -12,5 +12,5 @@ mysql-connector-python-rf==2.2.2
 PyMySQL==0.7.11
 pytz==2017.3
 SQLAlchemy==1.1.15
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 flask-bootstrap
